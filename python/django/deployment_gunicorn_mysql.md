@@ -11,8 +11,8 @@
    5. Git - Version control system
 
 ```bash
-$ sudo apt-get update
-$ sudo apt-get install nginx mysql-server python3-pip python3-dev libmysqlclient-dev ufw
+$ apt-get update
+$ apt-get install nginx mysql-server python3-pip python3-dev libmysqlclient-dev ufw python3-venv
 ```
 
 ## Installing python libraries

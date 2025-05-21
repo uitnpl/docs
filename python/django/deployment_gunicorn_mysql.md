@@ -99,8 +99,15 @@ Add appropriate ip address or domain name to allowed hosts.
 (appenv) $ python manage.py collectstatic
 (appenv) $ python manage.py seeddata
 ```
-
 These commands create all required tables in the new database created and also collects all static files to a static folder under GoalsTracker directory.
+
+3. Copy configuration file
+
+```bash
+(appenv) gt-epms $ mkdir Envs
+(appenv) gt-epms $ vi .env.local
+```
+Please paste the environment details shared.
 
 ## Permissions
 

@@ -36,11 +36,11 @@ Also install any other dependencies needed
 
 ## Setting up the firewall
 
-We'll disable access to the server on all ports except 8800 for now. Later on we'll remove this give access to all ports that nginx needs
+We'll enable default firewall ports & allow 8000 for now. Later on we'll remove this give access to all ports that nginx needs
 
 ```bash
 $ sudo ufw enable
-$ sudo ufw allow 8800
+$ sudo ufw allow 8000
 ```
 
 ## Setting up database

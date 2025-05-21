@@ -20,9 +20,7 @@ $ sudo apt-get install nginx mysql-server python3-pip python3-dev libmysqlclient
 1. Create a directory to hold all django apps (Eg. django)
 2. Create a virtual environment
 3. Clone/extract repository into django directory
-3. Install django
-4. Install mysql client for python
-5. Install gunicorn to interact with our python code
+3. Install the requirements via txt file.
 
 ```bash
 $ mkdir django

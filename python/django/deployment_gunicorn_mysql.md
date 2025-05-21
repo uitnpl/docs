@@ -12,7 +12,7 @@
 
 ```bash
 $ sudo apt-get update
-$ sudo apt-get install nginx mysql-server python3-pip python3-dev libmysqlclient-dev ufw virtualenv
+$ sudo apt-get install nginx mysql-server python3-pip python3-dev libmysqlclient-dev ufw
 ```
 
 ## Installing python libraries
@@ -41,7 +41,6 @@ Also install any other dependencies needed
 We'll disable access to the server on all ports except 8800 for now. Later on we'll remove this give access to all ports that nginx needs
 
 ```bash
-$ sudo ufw default deny
 $ sudo ufw enable
 $ sudo ufw allow 8800
 ```
@@ -62,7 +61,7 @@ Give password for root user
 $ sudo mysql -u root -p
 $ CREATE DATABASE tnpl_epms CHARACTER SET 'utf8';
 $ CREATE USER tnpl_app_user
-$ GRANT ALL ON tnpl_epms.* TO 'tnpl_app_user'@'localhost' IDENTIFIED BY '<app user password>';
+$ GRANT ALL ON tnpl_epms.* TO 'tnpl_app_user' IDENTIFIED BY '<app user password>';
 $ quit
 ```
 ## Setting up the django project
@@ -88,8 +87,6 @@ $ quit
 
 ``` python
 DEBUG = False
-
-ALLOWED_HOSTS = ['127.0.0.1', 'domain.name', 'ip-address']
 
 ...
 
@@ -118,45 +115,33 @@ Add appropriate ip address or domain name to allowed hosts.
 (appenv) $ python manage.py makemigrations
 (appenv) $ python manage.py migrate
 (appenv) $ python manage.py collectstatic
+(appenv) $ python manage.py seeddata
 ```
 
 These commands create all required tables in the new database created and also collects all static files to a static folder under GoalsTracker directory.
 
-3. Run the development server to check whether everything is working fine.
-```
-(venv) $ python manage.py runserver
-```
-
 ## Setting up Gunicorn
 
-1. Test gunicorn with django by running the following command inside the django project folder
-
-```
-(venv) $ gunicorn --bind 0.0.0.0:8800 GoalsTracker.wsgi:application
-```
-Now if you visit 0.0.0.0:8800/admin you'll see that there is no css or js files. Thats because we are not yet serving static files.
-Kill gunicorn and exit the virtual environment.
-
-2. Lets daemonise the gunicorn
+1. Lets daemonise the gunicorn
 
     1. Open a new gunicorn.service file
         ```bash
-        sudo gedit /etc/systemd/system/gunicorn.service
+        vi /etc/systemd/system/gunicorn.service
         ```
     2. Copy the following lines with appropriate modifications
         ```
-        [Unit]
-        Description=gunicorn service
-        After=network.target
-        
-        [Service]
-        User=<user>
-        Group=www-data
-        WorkingDirectory=/home/<user>/django/gt-epms/
-        ExecStart=/home/<user>/django/gt-epms/appenv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/<user>/django/gt-epms/tnpl_epms.sock GoalsTracker.wsgi:application
-        
-        [Install]
-        WantedBy=multi-user.target
+         [Unit]
+         Description=gunicorn service
+         After=network.target
+         
+         [Service]
+         User=epasusr
+         Group=www-data
+         WorkingDirectory=/epas/gt-epms/
+         ExecStart=/epas/gt-epms/appenv/bin/gunicorn  --access-logfile /epas/logs/gunicorn-access.log --error-logfile /epas/logs/gunicorn-error.log  --workers 4 --bind unix:/epas/gt-epms/tnpl_epms.sock GoalsTracker.wsgi:application
+         
+         [Install]
+         WantedBy=multi-user.target
         ```
 
     3. Enable the daemon
@@ -188,7 +173,7 @@ Thats all for gunicorn
 1. Create a new configuration file for nginx
 
 ```
-$ sudo gedit /etc/nginx/sites-available/tnpl_epms
+$ sudo vi /etc/nginx/sites-available/tnpl_epms
 ```
 
 2. Copy following lines with appropriate modifications
@@ -196,7 +181,7 @@ $ sudo gedit /etc/nginx/sites-available/tnpl_epms
 ```
 server {
        listen 80;    
-       server_name 127.0.0.1;
+       server_name <ip>;
        location = /favicon.ico {access_log off;log_not_found off;} 
     
         location /static/ {
@@ -209,7 +194,7 @@ server {
     
         location / {
             include proxy_params;
-            proxy_pass http://unix:/home/<user>/django/gt-epms/tnpl_epms.sock;
+            proxy_pass http://unix:/epas/gt-epms/tnpl_epms.sock;
         }
      }
 ```

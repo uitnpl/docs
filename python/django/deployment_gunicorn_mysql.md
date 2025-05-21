@@ -27,7 +27,7 @@ $ mkdir django
 $ cd django
 $ git clone https://github.com/uitnpl/gt-epms
 $ cd gt-epms
-$ python -m venv appenv
+$ python3 -m venv appenv
 $ source appenv/bin/activate
 $ pip install -r requirements.txt
 ```
@@ -39,8 +39,8 @@ Also install any other dependencies needed
 We'll enable default firewall ports & allow 8000 for now. Later on we'll remove this give access to all ports that nginx needs
 
 ```bash
-$ sudo ufw enable
-$ sudo ufw allow 8000
+$ ufw enable
+$ ufw allow 8000
 ```
 
 ## Setting up database
@@ -50,7 +50,7 @@ $ sudo ufw allow 8000
 3. Create a user for the application and give all access to the database
    
 ``` bash
-$ sudo mysql_secure_installation
+$ mysql_secure_installation
 ```
 
 Give password for root user

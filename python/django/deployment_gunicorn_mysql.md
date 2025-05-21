@@ -23,10 +23,11 @@ $ apt-get install nginx mysql-server python3-pip python3-dev libmysqlclient-dev 
 3. Install the requirements via txt file.
 
 ```bash
-$ mkdir django
-$ cd django
+$ mkdir epas
+$ cd epas
 $ git clone https://github.com/uitnpl/gt-epms
 $ cd gt-epms
+$ mkdir logs
 $ python3 -m venv appenv
 $ source appenv/bin/activate
 $ pip install -r requirements.txt
@@ -100,6 +101,15 @@ Add appropriate ip address or domain name to allowed hosts.
 ```
 
 These commands create all required tables in the new database created and also collects all static files to a static folder under GoalsTracker directory.
+
+## Permissions
+
+Please run the following command to provide necessary permission to appuser.
+
+```bash
+chown -R epasusr:www-data /epas
+chmod -R 755 /epas
+```
 
 ## Setting up Gunicorn
 

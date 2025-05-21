@@ -12,7 +12,7 @@
 
 ```bash
 $ apt-get update
-$ apt-get install nginx mysql-server python3-pip python3-dev libmysqlclient-dev ufw python3-venv
+$ apt-get install nginx mysql-server python3-pip python3-dev libmysqlclient-dev ufw python3-venv pkg-config default-libmysqlclient-dev build-essential
 ```
 
 ## Installing python libraries

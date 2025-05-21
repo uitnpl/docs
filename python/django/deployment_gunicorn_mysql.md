@@ -57,29 +57,12 @@ Give password for root user
 
 ``` bash
 $ sudo mysql -u root -p
-$ CREATE DATABASE tnpl_epms CHARACTER SET 'utf8';
+$ CREATE DATABASE tnpl_epas CHARACTER SET 'utf8';
 $ CREATE USER tnpl_app_user
 $ GRANT ALL ON tnpl_epms.* TO 'tnpl_app_user' IDENTIFIED BY '<app user password>';
 $ quit
 ```
 ## Setting up the django project
-
-#### Current Folder structure
-```
-\home\<user>\django\
-|
-|--- gt-epms
-    |
-    |--- venv
-    |--- manage.py
-    |--- requirements.txt
-    |--- GoalsTracker
-        |
-        |--- __init__.py
-        |--- urls.py
-        |--- settings.py
-        |--- wsgi.py
-```
 
 1. Modify the `settings.py` file to use the newly created database.
 

@@ -74,7 +74,6 @@ server {
 
 ```
 ## 3. Test and Restart Nginx
-
 ```bash
 # Test Nginx configuration
 sudo nginx -t

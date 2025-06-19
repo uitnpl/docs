@@ -20,6 +20,7 @@ sudo cp yourdomain.com.crt /etc/ssl/private/
 sudo chmod 600 /etc/ssl/private/tnpl.com.key
 sudo chmod 644 /etc/ssl/private/tnpl.com.crt
 ```
+
 ## 2.Configure Nginx
 
 Edit /etc/nginx/sites-available/tnpl_epms
@@ -73,6 +74,7 @@ server {
      }
 
 ```
+
 ## 3. Test and Restart Nginx
 ```bash
 # Test Nginx configuration

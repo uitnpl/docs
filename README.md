@@ -21,7 +21,3 @@ Welcome to our technical documentation repository. This serves as a central hub 
 
 ## Contributing
 We welcome contributions to our documentation! Please see our [Contributing Guide](contributing.md) for how to submit improvements.
-
----
-
-This documentation is automatically deployed when changes are merged to the main branch. Last updated: {{LAST_UPDATED_DATE}}

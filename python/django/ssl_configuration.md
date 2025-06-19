@@ -81,4 +81,5 @@ server {
 sudo nginx -t
 
 # If test succeeds, restart Nginx
-sudo systemctl restart nginx```
+sudo systemctl restart nginx
+```
